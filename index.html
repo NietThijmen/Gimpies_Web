@@ -12,6 +12,7 @@
 <body>
 
 <div class="w3-sidebar w3-bar-block w3-gray" style="width:25%">
+    <img src="logo.png"  class="w3-bar-item w3-blue" style="height: 33%;">
     <a href="index.html" class="w3-bar-item w3-button w3-blue">Home</a>
     <a href="login.html" class="w3-bar-item w3-button w3-blue" >Login</a>
     <a href="register.html" class="w3-bar-item w3-button w3-blue">Register</a>
@@ -37,6 +38,7 @@
               <p>Vergeet niet in te loggen of een account te maken</p>
               <button class="w3-button" onclick="document.location.href = 'login.html'" >Login</button>
               <button class="w3-button" onclick="document.location.href = 'register.html'" >register</button>
+              <button class="w3-button" onclick="localStorage.removeItem('login_key'); alert('You have been logged out!')">Log out</button>
           </div>
       </div>
       <div class="w3-card-4 w3-bottom w3-center">

@@ -9,6 +9,8 @@
 </head>
 <body>
 <div class="w3-sidebar w3-bar-block w3-gray" style="width:25%">
+    <img src="logo.png"  class="w3-bar-item w3-blue" style="height: 33%;">
+
     <a href="index.html" class="w3-bar-item w3-button w3-blue">Home</a>
     <a href="login.html" class="w3-bar-item w3-button w3-blue">Login</a>
     <a href="register.html" class="w3-bar-item w3-button w3-blue">Register</a>
@@ -33,7 +35,10 @@
 
 
     <script>
-
+        if(localStorage.getItem('login_key') == null) {
+            alert("You aren't logged in!")
+            window.location.href = 'index.html';
+        }
         let API = new api();
         API.GetOrders(localStorage.getItem('login_key')).then(products => {
             let table = document.getElementById('table');
