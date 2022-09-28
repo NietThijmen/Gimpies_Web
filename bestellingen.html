@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimpies_Webstore</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<div class="w3-sidebar w3-bar-block w3-gray" style="width:25%">
+    <a href="index.html" class="w3-bar-item w3-button w3-blue">Home</a>
+    <a href="login.html" class="w3-bar-item w3-button w3-blue">Login</a>
+    <a href="register.html" class="w3-bar-item w3-button w3-blue">Register</a>
+    <a href="products.html" class="w3-bar-item w3-button w3-blue">Producten</a>
+    <a href="bestellingen.html" class="w3-bar-item w3-button w3-blue">bestelingen</a>
+
+</div>
+
+<div style="margin-left:25%">
+    <script src="api.js"></script>
+    <div id="products" style="background-color: rgba(0,0,0,5%)">
+
+        <table class="w3-table w3-red" id="table">
+            <tr>
+                <th>Bestelling merk</th>
+                <th>Bestelling naam</th>
+                <th>Bestelling maat</th>
+                <th>Bestelling aantal</th>
+            </tr>
+        </table>
+    </div>
+
+
+    <script>
+
+        let API = new api();
+        API.GetOrders(localStorage.getItem('login_key')).then(products => {
+            console.log(products)
+            let table = document.getElementById('table');
+            products.forEach(product => {
+                table.innerHTML += `
+            <tr>
+               <th>${product.productbrand}</th>
+               <th>${product.productname}</th>
+               <th>${product.productsize}</th>
+               <th>${product.amount || 1}</th>
+            </tr>
+            `
+            })
+        });
+    </script>
+</div>
+</body>
+</html>
+
+
+
+
