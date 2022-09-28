@@ -21,7 +21,7 @@
     <script src="api.js"></script>
     <div id="products" style="background-color: rgba(0,0,0,5%)">
 
-        <table class="w3-table w3-red" id="table">
+        <table class="w3-table w3-yellow" id="table">
             <tr>
                 <th>Bestelling merk</th>
                 <th>Bestelling naam</th>
@@ -36,7 +36,6 @@
 
         let API = new api();
         API.GetOrders(localStorage.getItem('login_key')).then(products => {
-            console.log(products)
             let table = document.getElementById('table');
             products.forEach(product => {
                 table.innerHTML += `

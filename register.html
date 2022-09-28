@@ -12,7 +12,7 @@
 
 <div class="w3-sidebar w3-bar-block w3-gray" style="width:25%">
     <a href="index.html" class="w3-bar-item w3-button w3-blue">Home</a>
-    <a href="login.html" class="w3-bar-item w3-button w3-blue" >Login</a>
+    <a href="login.html" class="w3-bar-item w3-button w3-blue">Login</a>
     <a href="register.html" class="w3-bar-item w3-button w3-blue">Register</a>
     <a href="products.html" class="w3-bar-item w3-button w3-blue">Producten</a>
     <a href="bestellingen.html" class="w3-bar-item w3-button w3-blue">bestelingen</a>
@@ -25,7 +25,10 @@
         <input class="w3-input" id="username" type="text">
 
         <label>Password</label>
-        <input class="w3-input" id="password" type="text">
+        <input class="w3-input" id="password" type="password">
+
+        <label>Repeat password</label>
+        <input class="w3-input" id="password2" type="password">
     </form>
     <button class="w3-button" id="button" onclick="register()">Register</button>
 
@@ -34,6 +37,24 @@
             let API = new api()
             let username = document.getElementById('username').value;
             let password = document.getElementById('password').value;
+            let confirmpassword = document.getElementById('password2').value;
+            if (password == "") {
+                alert("Please fill in your desired password");
+                return;
+            }
+            if (username == "") {
+                alert("Please fill in your desired username");
+                return;
+            }
+            if (password != confirmpassword) {
+                if (confirmpassword == '') {
+                    alert("Please confirm your password")
+                } else {
+                    alert("Your passwords don't match")
+                }
+                return;
+            }
+
             API.register(username, password);
             // document.location.href = 'login.html'
         }

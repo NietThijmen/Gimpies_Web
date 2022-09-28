@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <script src="./api.js"></script>
@@ -22,19 +25,23 @@
 <div style="margin-left:25%">
     <form class="w3-container">
 
-        <label>Username</label>
+        <label>Username <i class="fa-sharp fa-solid fa-lock"></i></label>
         <input class="w3-input" id="username" type="text">
 
-        <label>Password</label>
-        <input class="w3-input" id="password" type="text">
+        <label>Password <i class="fa-solid fa-key"></i></label>
+        <input class="w3-input" id="password" type="password">
     </form>
-    <button class="w3-button w3-left" id="button" onclick="login()">Login</button>
+    <button class="w3-button w3-left" id="button" onclick="login()">Login <i class="fa-solid fa-lock-open"></i></button>
 
     <script>
         function login() {
             let API = new api()
             let username = document.getElementById('username').value;
             let password = document.getElementById('password').value;
+            if(username == '') {
+                alert("Username kan niet leeg zijn");
+                return;
+            }
             API.login(username, password)
         }
     </script>

@@ -1,5 +1,9 @@
 class api {
-
+    constructor() {
+        if(localStorage.getItem("url") == null) {
+            localStorage.setItem("url", "http://localhost:5000/")
+        }
+    }
     login = (username, password) => {
         fetch(`http://localhost:5000/login/${username}/${password}`).then(data => {
             data.text().then(response_text => {
@@ -15,13 +19,16 @@ class api {
     }
 
     register = (username, password) => {
-        fetch(`http://localhost:5000/register/${username}/${password}`).then(data => {
+        fetch(`${localStorage.getItem("url")}register/${username}/${password}`).then(data => {
             data.text().then(response_text => {
                 if (response_text.split(' - ')[0] == 201) {
                     console.log("[debug] User made: " + username)
                     alert("User created: " + username)
                 } else {
-                    console.log("[debug] Error: " + response_text)
+                    if(response_text.split(' - ')[0] == 401) {
+                        alert("User already exists: " + username)
+                    }
+                    console.log("[debug] register error: " + response_text)
                 }
             })
         })
@@ -29,18 +36,19 @@ class api {
 
     GetProducts = async () => {
         let arr = []
-        let products = await fetch('http://localhost:5000/products/products')
+        let products = await fetch(`${localStorage.getItem("url")}products/products`)
         let text = await (products.text());
         let object = await JSON.parse(text);
         object.forEach(data => {
             arr.push(data);
+            console.log(`[debug] Product added to array: ${JSON.stringify(data)}`)
         })
         return arr
 
     }
 
     placeOrder = async (uid, id, amount) => {
-        let order = await fetch(`http://localhost:5000/products/order/${uid}/${id}/${amount}`)
+        let order = await fetch(`${localStorage.getItem("url")}products/order/${uid}/${id}/${amount}`)
         let text = await order.text();
         if(text.split(' - ')[0] == 402) {
             alert("Login expired, please login again");
@@ -53,19 +61,19 @@ class api {
             return;
         }
         alert("Order has been placed")
-        console.log('[debug] ' + text);
+        console.log('[debug] placing order:' + text);
     }
 
     GetOrders =async (uid) => {
-        console.log(uid)
-        let order = await fetch(`http://localhost:5000/orders/get/${uid}`)
+        console.log(`[debug] Secure Key: ${uid}`)
+        let order = await fetch(`${localStorage.getItem("url")}orders/get/${uid}`)
         let text = await order.text();
         if(text.split(' - ')[0] == 404 || text.split(' - ')[0] == 402) {
             alert("Error fetching orders");
             console.log('[debug] ' + text);
             return {};
         }
-        console.log(text)
+        console.log(`[debug] order list: ${text}`)
         let json = JSON.parse(text);
         return json;
     }
